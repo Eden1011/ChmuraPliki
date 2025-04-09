@@ -1,0 +1,36 @@
+networks:
+  frontend_network:
+    driver: bridge
+  backend_network:
+    driver: bridge
+
+services:
+  frontend:
+    image: nginx:alpine
+    container_name: frontend
+    ports:
+      - "8080:80"
+    networks:
+      - frontend_network
+
+  backend:
+    image: python:3.9-slim
+    container_name: backend
+    command: sh -c "pip install flask requests && python -m flask run --host=0.0.0.0"
+    environment:
+      - FLASK_APP=/app/app.py
+    volumes:
+      - ./backend:/app
+    networks:
+      - frontend_network
+      - backend_network
+
+  database:
+    image: postgres:13-alpine
+    container_name: database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=testdb
+    networks:
+      backend_network:

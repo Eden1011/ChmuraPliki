@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mikroserwisy Demo</title>
+ </head>
+<body>
+    <h1>Test Mikroserwisów</h1>
+    <button onclick="checkBackend()">Sprawdź Backend</button>
+    <button onclick="checkDatabase()">Sprawdź Połączenie z Bazą Danych</button>
+    <button onclick="checkNetworkInfo()">Sprawdź Informacje o Sieci</button>
+    
+    <h2>Wyniki:</h2>
+    <pre id="results">Kliknij przycisk...</pre>
+
+    <script>
+        async function checkBackend() {
+            try {
+                const response = await fetch('/api');
+                const data = await response.json();
+                document.getElementById('results').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('results').textContent = 'Błąd: ' + error.message;
+            }
+        }
+
+        async function checkDatabase() {
+            try {
+                const response = await fetch('/api/check-database');
+                const data = await response.json();
+                document.getElementById('results').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('results').textContent = 'Błąd: ' + error.message;
+            }
+        }
+
+        async function checkNetworkInfo() {
+            try {
+                const response = await fetch('/api/network-info');
+                const data = await response.json();
+                document.getElementById('results').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('results').textContent = 'Błąd: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
