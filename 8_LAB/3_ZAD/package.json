@@ -1,0 +1,15 @@
+{
+  "name": "express-redis-postgres-app",
+  "version": "1.0.0",
+  "description": "Aplikacja Express korzystająca z Redis i PostgreSQL",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "redis": "^3.1.2",
+    "pg": "^8.7.1",
+    "body-parser": "^1.19.0"
+  }
+}
